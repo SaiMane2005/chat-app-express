@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Chat Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h3>All chats</h3>
+    <form method="GET" action="/chats/new" >
+        <button>Chat</button>
+    </form>
+    <br>
+    <% for(let chat of chats){ %>
+    <div class="chat">
+        <p>From: <%= chat.from%></p>
+        <div class="msg">
+            <p><i> <%= chat.msg%></i></p>
+            <form method="get" action="/chats/<%= chat._id%>/edit"  >
+                <button>Edit</button>
+            </form>
+            <br>
+            <form method="POST" action="/chats/<%= chat._id%>?_method=DELETE" onsubmit="return confirm('Are you sure you want to delete this chat?');" >
+                <button>Delete</button>
+            </form>
+        </div>
+        <p>Received: <%= chat.to%></p>
+        <hr>
+        <p><%= chat.created_at.toString().split(" ")[4]%></p>
+        <p><%= chat.created_at.toString().split(" ").slice(0,4).join("-")%></p>
+    </div>
+    <br>
+    <br><br>
+<%} %>
+//to give styling to this we create a css file on the public folder
+
+</body>
+</html>
